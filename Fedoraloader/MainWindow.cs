@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.IO.Compression;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Fedoraloader.Injection;
@@ -19,6 +21,7 @@ namespace Fedoraloader
             int nHeightEllipse
         );
 
+        public const string ACTION_URL = "https://nightly.link/tf2cheater2013/Fedoraware/workflows/msbuild/main/Fedoraware.zip";
         public static bool IsElevated => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         private Point _mouseStartPos;
 
@@ -31,12 +34,12 @@ namespace Fedoraloader
             {
                 MessageBox.Show("This programm will not work without administrator rights!\nPlease run it as administrator.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            Text = Process.GetProcesses().First(x => x.ProcessName != "hl2").ProcessName;
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            lblStatus.Show();
+            lblStatus.Text = "Searching for TF2...";
             Process[] procList = Process.GetProcessesByName("hl2");
             if (procList.Length == 0)
             {
@@ -45,18 +48,44 @@ namespace Fedoraloader
                 {
                     btnLoad.PerformClick();
                 }
+                lblStatus.Hide();
                 return;
             }
-
             Process tfProcess = procList.First();
-            string dllPath = Path.GetTempPath() + @"\1x.dll";
+
+            // Download latest build
+            try
+            {
+                lblStatus.Text = "Preparing files...";
+                string dlPath = Path.GetTempPath() + @"\Fware.zip";
+                string extPath = Path.GetTempPath() + @"\Fware";
+
+                // Cleanup and preperation
+                File.Delete(dlPath);
+                Directory.CreateDirectory(extPath);
+
+                // Download build
+                WebClient wc = new();
+                lblStatus.Text = "Downloading...";
+                wc.DownloadFile(ACTION_URL, dlPath);
+                lblStatus.Text = "Extracting...";
+                ZipFile.ExtractToDirectory(dlPath, extPath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to download the latest build:\n" + ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Inject the dll if it exists
+            string dllPath = Path.GetTempPath() + @"\Fware\Fware(Release).dll";
             if (File.Exists(dllPath))
             {
+                lblStatus.Text = "Injecting...";
                 Inject(tfProcess, dllPath);
             }
             else
             {
-                DialogResult dlgResult = MessageBox.Show("The loader file could not be found!\nDo you want to manually select a .dll file?", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                DialogResult dlgResult = MessageBox.Show("The loader file could not be found!\nDo you want to manually select a .dll file?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlgResult == DialogResult.Yes)
                 {
                     OpenFileDialog dllDialog = new OpenFileDialog
@@ -68,6 +97,7 @@ namespace Fedoraloader
                     };
                     if (dllDialog.ShowDialog() == DialogResult.OK)
                     {
+                        lblStatus.Text = "Injecting custom dll...";
                         Inject(tfProcess, dllDialog.FileName);
                     }
                 }
@@ -76,7 +106,7 @@ namespace Fedoraloader
 
         private void Inject(Process pProcess, string pFileName)
         {
-            InjectionResult injectionResult = Injector.Inject(pProcess.Handle, pFileName + "x");
+            InjectionResult injectionResult = Injector.Inject(pProcess.Handle, pFileName);
             switch (injectionResult)
             {
                 case InjectionResult.AllocationError:
