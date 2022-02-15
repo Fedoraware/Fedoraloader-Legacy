@@ -3,7 +3,7 @@ Fedoraloader is a simple loader for Fedoraware that automatically downloads and 
 It was created so you don't have to fiddle around with injectors and GitHub.
 
 ## Download
-You can download the latest Fedoraloader build from the [releases](https://github.com/lnx00/Fedoraloader/releases/tag/release) or compile the source yourself.
+You can download the latest Fedoraloader build from the [releases](https://github.com/lnx00/Fedoraloader/releases/latest/) or compile the source yourself.
 
 ## Usage
 - Run Fedoraloader as an administrator
