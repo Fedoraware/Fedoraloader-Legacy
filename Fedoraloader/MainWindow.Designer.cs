@@ -34,18 +34,22 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.chkBypass = new System.Windows.Forms.CheckBox();
+            this.chkDefender = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLoad
             // 
+            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(176)))), ((int)(((byte)(76)))));
             this.btnLoad.FlatAppearance.BorderSize = 0;
             this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoad.Font = new System.Drawing.Font("Segoe UI Black", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLoad.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLoad.Location = new System.Drawing.Point(22, 208);
+            this.btnLoad.Location = new System.Drawing.Point(22, 223);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(445, 57);
             this.btnLoad.TabIndex = 0;
@@ -94,6 +98,7 @@
             // 
             // picLogo
             // 
+            this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.picLogo.Image = global::Fedoraloader.Properties.Resources.logo;
             this.picLogo.Location = new System.Drawing.Point(161, 59);
             this.picLogo.Name = "picLogo";
@@ -104,21 +109,55 @@
             // 
             // lblStatus
             // 
+            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblStatus.AutoSize = true;
             this.lblStatus.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblStatus.Location = new System.Drawing.Point(22, 270);
+            this.lblStatus.Location = new System.Drawing.Point(22, 284);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(57, 15);
             this.lblStatus.TabIndex = 4;
             this.lblStatus.Text = "Waiting...";
             this.lblStatus.Visible = false;
             // 
+            // chkBypass
+            // 
+            this.chkBypass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBypass.AutoSize = true;
+            this.chkBypass.Checked = true;
+            this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBypass.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.chkBypass.Location = new System.Drawing.Point(22, 198);
+            this.chkBypass.Name = "chkBypass";
+            this.chkBypass.Size = new System.Drawing.Size(125, 19);
+            this.chkBypass.TabIndex = 5;
+            this.chkBypass.Text = "Enable VAC bypass";
+            this.chkBypass.UseVisualStyleBackColor = true;
+            this.chkBypass.Visible = false;
+            this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            // 
+            // chkDefender
+            // 
+            this.chkDefender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDefender.AutoSize = true;
+            this.chkDefender.Checked = true;
+            this.chkDefender.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDefender.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.chkDefender.Location = new System.Drawing.Point(312, 198);
+            this.chkDefender.Name = "chkDefender";
+            this.chkDefender.Size = new System.Drawing.Size(154, 19);
+            this.chkDefender.TabIndex = 6;
+            this.chkDefender.Text = "Add Defender exception";
+            this.chkDefender.UseVisualStyleBackColor = true;
+            this.chkDefender.CheckedChanged += new System.EventHandler(this.chkDefender_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(25)))));
-            this.ClientSize = new System.Drawing.Size(488, 291);
+            this.ClientSize = new System.Drawing.Size(488, 306);
+            this.Controls.Add(this.chkDefender);
+            this.Controls.Add(this.chkBypass);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.picLogo);
             this.Controls.Add(this.pnlHeader);
@@ -146,5 +185,7 @@
         private Button btnExit;
         private PictureBox picLogo;
         private Label lblStatus;
+        private CheckBox chkBypass;
+        private CheckBox chkDefender;
     }
 }
