@@ -17,5 +17,5 @@ Optionally, you can let the loader create exceptions for Microsoft Defender so i
 
 ## Credits
 - [lnx00](https://github.com/lnx00)
-- [danielkrupinski](https://github.com/danielkrupinski) (VAC Bypass)
+- [Daniel Krupiński](https://github.com/danielkrupinski) (VAC Bypass)
 - [SP1K3](https://www.unknowncheats.me/forum/members/954168.html) (LoadLibrary injector)
