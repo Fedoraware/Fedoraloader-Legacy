@@ -13,7 +13,7 @@ You can download the latest Fedoraloader build from the [releases](https://githu
 This program downloads the latest Fedoraware artifact using [nightly.link](nightly.link) and extracts it in your TEMP-Folder.
 Then the .dll file is injected into TF2 using a LoadLibrary injector.
 
-Optionally, you can let the loader create eceptions for Microsoft Defender so it won't block the Fedoraware DLL.
+Optionally, you can let the loader create exceptions for Microsoft Defender so it won't block the Fedoraware DLL.
 
 ## Credits
 - [lnx00](https://github.com/lnx00)
