@@ -8,11 +8,13 @@ using System.Text;
 
 namespace Fedoraloader.Injection
 {
-	public static class Injector
+	public class Injector
 	{
-		public static InjectionResult Inject(IntPtr processHandle, string dllPath)
+		private FunctionHooker _functionHooker = new();
+
+		public InjectionResult Inject(IntPtr processHandle, string dllPath)
 		{
-			if (!FunctionHooker.HookFunctions(processHandle))
+			if (!_functionHooker.HookFunctions(processHandle))
 				return InjectionResult.HookFunctionsFail;
 
 			if (!AllocateLibrarySize(processHandle, new IntPtr(dllPath.Length), out var allocatedAddress))
@@ -27,7 +29,7 @@ namespace Fedoraloader.Injection
 			if (!CallRemoteLoadLibrary(processHandle, loadLibraryAddress, allocatedAddress))
 				return InjectionResult.CallLoadLibraryError;
 
-			if (!FunctionHooker.RestoreHooks(processHandle))
+			if (!_functionHooker.RestoreHooks(processHandle))
 				return InjectionResult.RestoreHooksFail;
 
 			NativeWrapper.CloseHandle(processHandle);
@@ -35,19 +37,19 @@ namespace Fedoraloader.Injection
 			return InjectionResult.Success;
 		}
 
-		private static bool AllocateLibrarySize(IntPtr processHandle, IntPtr size, out IntPtr address)
+		private bool AllocateLibrarySize(IntPtr processHandle, IntPtr size, out IntPtr address)
 		{
 			address = NativeWrapper.VirtualAllocEx(processHandle, IntPtr.Zero, size, AllocationType.Reserve | AllocationType.Commit, MemoryProtection.ExecuteReadWrite);
 			return address != IntPtr.Zero;
 		}
 
-		private static bool SetLoadLibraryPath(IntPtr processHandle, string dllPath, IntPtr allocatedAddress)
+		private bool SetLoadLibraryPath(IntPtr processHandle, string dllPath, IntPtr allocatedAddress)
 		{
 			byte[] bytes = Encoding.ASCII.GetBytes(dllPath);
 			return NativeWrapper.WriteProcessMemory(processHandle, allocatedAddress, bytes, (int)bytes.Length, out _);
 		}
 
-		private static bool GetLoadLibraryAddress(out IntPtr loadLibraryAddress)
+		private bool GetLoadLibraryAddress(out IntPtr loadLibraryAddress)
 		{
 			loadLibraryAddress = IntPtr.Zero;
 
@@ -61,7 +63,7 @@ namespace Fedoraloader.Injection
 			return loadLibraryAddress != IntPtr.Zero;
 		}
 
-		private static bool CallRemoteLoadLibrary(IntPtr processHandle, IntPtr loadLibraryAddress, IntPtr allocatedProcessAddress)
+		private bool CallRemoteLoadLibrary(IntPtr processHandle, IntPtr loadLibraryAddress, IntPtr allocatedProcessAddress)
 		{
 			var threadHandle = NativeWrapper.CreateRemoteThread(processHandle, IntPtr.Zero, 0, loadLibraryAddress, allocatedProcessAddress, 0, IntPtr.Zero);
 

@@ -132,7 +132,6 @@
             this.chkBypass.TabIndex = 5;
             this.chkBypass.Text = "Enable VAC bypass";
             this.chkBypass.UseVisualStyleBackColor = true;
-            this.chkBypass.Visible = false;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
             // chkDefender

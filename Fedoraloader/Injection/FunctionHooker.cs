@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Fedoraloader.Injection
 {
-	public static class FunctionHooker
+	public class FunctionHooker
 	{
 
-		private static readonly NativeFunction[] NativeFunctions =
+		private readonly NativeFunction[] NativeFunctions =
 		{
 			new NativeFunction("NtOpenFile", "ntdll"),
 			new NativeFunction("LdrLoadDll", "ntdll"),
@@ -33,9 +33,9 @@ namespace Fedoraloader.Injection
 			new NativeFunction("ResumeThread", "KernelBase")
 		};
 
-		private static readonly Dictionary<NativeFunction, byte[]> OriginalFunctionBytes = new Dictionary<NativeFunction, byte[]>();
+		private readonly Dictionary<NativeFunction, byte[]> OriginalFunctionBytes = new Dictionary<NativeFunction, byte[]>();
 
-		public static bool HookFunctions(IntPtr processHandle)
+		public bool HookFunctions(IntPtr processHandle)
 		{
 			foreach (var function in NativeFunctions)
 			{
@@ -49,7 +49,7 @@ namespace Fedoraloader.Injection
 			return true;
 		}
 
-		public static bool RestoreHooks(IntPtr processHandle)
+		public bool RestoreHooks(IntPtr processHandle)
 		{
 			foreach (var function in NativeFunctions)
 			{
@@ -60,7 +60,7 @@ namespace Fedoraloader.Injection
 			return true;
 		}
 
-		private static bool HookFunction(IntPtr processHandle, NativeFunction function)
+		private bool HookFunction(IntPtr processHandle, NativeFunction function)
 		{
 			var originalFunctionAddress = NativeWrapper.GetProcAddress(NativeWrapper.LoadLibrary(function.DllName), function.FunctionName);
 
@@ -84,7 +84,7 @@ namespace Fedoraloader.Injection
 			return NativeWrapper.WriteProcessMemory(processHandle, originalFunctionAddress, originalDllBytes, sizeof(byte) * 6, out _);
 		}
 
-		private static bool RestoreHook(IntPtr processHandle, NativeFunction function)
+		private bool RestoreHook(IntPtr processHandle, NativeFunction function)
 		{
 			IntPtr originalFunctionAddress = NativeWrapper.GetProcAddress(NativeWrapper.LoadLibrary(function.DllName), function.FunctionName);
 

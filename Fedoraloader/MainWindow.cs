@@ -11,6 +11,7 @@ namespace Fedoraloader
 {
     public partial class MainWindow : Form
     {
+        #region Signatures
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -21,6 +22,7 @@ namespace Fedoraloader
             int nWidthEllipse,
             int nHeightEllipse
         );
+        #endregion
 
         public const string ACTION_URL = "https://nightly.link/tf2cheater2013/Fedoraware/workflows/msbuild/main/Fedoraware.zip";
         public static bool IsElevated => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
@@ -149,7 +151,8 @@ namespace Fedoraloader
 
         private void Inject(Process pProcess, string pFileName)
         {
-            InjectionResult injectionResult = Injector.Inject(pProcess.Handle, pFileName);
+            Injector tfInjector = new();
+            InjectionResult injectionResult = tfInjector.Inject(pProcess.Handle, pFileName);
             switch (injectionResult)
             {
                 case InjectionResult.AllocationError:
@@ -190,10 +193,17 @@ namespace Fedoraloader
 
         private Process? GetGameProcess()
         {
-            /*if (chkBypass.Checked)
+            if (chkBypass.Checked)
             {
-                VacBypass();
-            }*/
+                if (!VacBypass())
+                {
+                    if (MessageBox.Show("VAC bypass failed! Be careful.", "", MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Error) == DialogResult.Cancel)
+                    {
+                        return null;
+                    }
+                }
+            }
 
             Process[] procList = Process.GetProcessesByName("hl2");
             if (procList.Length == 0)
@@ -207,18 +217,23 @@ namespace Fedoraloader
 
         private bool VacBypass()
         {
-            /*IEnumerable<Process> killProcs = Process.GetProcesses()
-                .Where(p => p.ProcessName is "hl2" or "Steam" or "Steam Client WebHelper");
+            IEnumerable<Process> killProcs = Process.GetProcesses()
+                .Where(p => p.ProcessName is "hl2" or "steam" or "steamwebhelper");
 
             // Kill all steam processes
+            UpdateStatus("Closing Steam...");
             foreach (Process proc in killProcs)
             {
                 proc.Kill();
             }
 
-            Thread.Sleep(1500);
+            do
+            {
+                Thread.Sleep(250);
+            } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2" or "steam" or "steamwebhelper") > 0);
 
             // Start new steam process
+            UpdateStatus("Starting Steam...");
             string steamPath = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamExe", "");
             if (!File.Exists(steamPath))
             {
@@ -226,26 +241,41 @@ namespace Fedoraloader
             }
 
             // Wait for process
-            Process steamProcess = Process.Start(steamPath);
+            Process steamProcess = new Process();
+            steamProcess.StartInfo.FileName = steamPath;
+            steamProcess.StartInfo.UseShellExecute = true;
+            steamProcess.StartInfo.Arguments = "-applaunch 440";
+            steamProcess.StartInfo.Verb = "runas";
+            steamProcess.Start();
+
             bool moduleFound = false;
             do
             {
                 foreach (ProcessModule pm in steamProcess.Modules)
                 {
-                    if (pm.ModuleName == "Steam.exe")
+                    if (pm.ModuleName == "steam.exe")
                     {
-                        Debug.WriteLine("Module.exe found!");
-                        moduleFound = true;
-                    }
-
-                    if (pm.ModuleName == "Steam")
-                    {
-                        Debug.WriteLine("Module found!");
                         moduleFound = true;
                     }
                 }
-                Thread.Sleep(50);
-            } while (!moduleFound);*/
+                Thread.Sleep(250);
+            } while (!moduleFound);
+
+            UpdateStatus("Loading VAC bypass...");
+            Injector steamInjector = new Injector();
+            InjectionResult injectionResult = steamInjector.Inject(steamProcess.Handle, AppDomain.CurrentDomain.BaseDirectory + @"\VAC-Bypass.dll");
+            if (injectionResult != InjectionResult.Success)
+            {
+                MessageBox.Show("VAC bypass failed! Could not inject into Steam.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            UpdateStatus("Waiting for TF2...");
+
+            do
+            {
+                Thread.Sleep(1000);
+            } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2") == 0);
 
             return true;
         }
@@ -254,7 +284,7 @@ namespace Fedoraloader
         {
             try
             {
-                _ = PowerShell.Create()
+                PowerShell.Create()
                     .AddScript(@"Add-MpPreference -ExclusionPath '" + pDirectory + "'")
                     .Invoke();
 
