@@ -31,12 +31,14 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.picGradient = new System.Windows.Forms.PictureBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.chkBypass = new System.Windows.Forms.CheckBox();
             this.chkDefender = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGradient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,8 +46,8 @@
             // 
             this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(176)))), ((int)(((byte)(76)))));
-            this.btnLoad.FlatAppearance.BorderSize = 0;
+            this.btnLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.btnLoad.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(128)))));
             this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoad.Font = new System.Drawing.Font("Segoe UI Black", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLoad.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -59,12 +61,13 @@
             // 
             // lblTitle
             // 
+            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semilight", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTitle.Location = new System.Drawing.Point(18, 9);
+            this.lblTitle.Font = new System.Drawing.Font("DejaVu Sans", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
+            this.lblTitle.Location = new System.Drawing.Point(162, 12);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(134, 30);
+            this.lblTitle.Size = new System.Drawing.Size(164, 24);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Fedoraloader";
             this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
@@ -72,7 +75,8 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(30)))), ((int)(((byte)(35)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(41)))));
+            this.pnlHeader.Controls.Add(this.picGradient);
             this.pnlHeader.Controls.Add(this.btnExit);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -82,6 +86,17 @@
             this.pnlHeader.TabIndex = 2;
             this.pnlHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlHeader_MouseDown);
             this.pnlHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlHeader_MouseMove);
+            // 
+            // picGradient
+            // 
+            this.picGradient.Dock = System.Windows.Forms.DockStyle.Top;
+            this.picGradient.Image = global::Fedoraloader.Properties.Resources.gradient;
+            this.picGradient.Location = new System.Drawing.Point(0, 0);
+            this.picGradient.Name = "picGradient";
+            this.picGradient.Size = new System.Drawing.Size(488, 4);
+            this.picGradient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picGradient.TabIndex = 2;
+            this.picGradient.TabStop = false;
             // 
             // btnExit
             // 
@@ -153,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(20)))), ((int)(((byte)(25)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(488, 306);
             this.Controls.Add(this.chkDefender);
             this.Controls.Add(this.chkBypass);
@@ -170,6 +185,7 @@
             this.Text = "Fedoraloader";
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGradient)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -186,5 +202,6 @@
         private Label lblStatus;
         private CheckBox chkBypass;
         private CheckBox chkDefender;
+        private PictureBox picGradient;
     }
 }

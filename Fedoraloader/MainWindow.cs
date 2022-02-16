@@ -28,12 +28,12 @@ namespace Fedoraloader
         public static bool IsElevated => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
         private Point _mouseStartPos;
-        private string _workDir; // Fallback folder
+        private string _workDir;
 
         public MainWindow()
         {
             InitializeComponent();
-            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
 
             // Check for administrator rights
             if (!IsElevated)
