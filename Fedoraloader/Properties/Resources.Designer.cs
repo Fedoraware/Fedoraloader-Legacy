@@ -79,5 +79,15 @@ namespace Fedoraloader.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] VAC_Bypass {
+            get {
+                object obj = ResourceManager.GetObject("VAC-Bypass", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

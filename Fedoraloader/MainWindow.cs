@@ -29,6 +29,7 @@ namespace Fedoraloader
 
         private Point _mouseStartPos;
         private string _workDir;
+        private string _fileDir;
 
         public MainWindow()
         {
@@ -52,6 +53,7 @@ namespace Fedoraloader
             }
 
             _workDir = Path.GetTempPath() + Properties.Settings.Default.folderID;
+            _fileDir = _workDir + @"\Data\";
             Debug.WriteLine(_workDir);
 
             chkBypass.Checked = Properties.Settings.Default.bypass;
@@ -74,23 +76,35 @@ namespace Fedoraloader
 
         private void RunLoader()
         {
+            // Cleanup and preperation
+            UpdateStatus("Preparing files...");
+            try
+            {
+                if (Directory.Exists(_fileDir))
+                {
+                    Directory.Delete(_fileDir, true);
+                }
+
+                Directory.CreateDirectory(_fileDir);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to create working directory:\n" + ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Thread.Sleep(250);
+
+            // Wait for TF2
             UpdateStatus("Searching for TF2...");
-            Process tfProcess = GetGameProcess();
-            if (tfProcess == null) { return; }
-            string dllFile = _workDir + @"Fware(Release).dll";
+            Process? tfProcess = GetGameProcess();
+            if (tfProcess == null) { MessageBox.Show("Invalid game process!", "", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            string dllFile = _fileDir + @"Fware(Release).dll";
 
             // Download latest build
             try
             {
-                string dlPath = _workDir + @"\" + Utils.RandomString(8) + ".zip";
-
-                // Cleanup and preperation
-                UpdateStatus("Preparing files...");
-                if (Directory.Exists(_workDir))
-                {
-                    Directory.Delete(_workDir, true);
-                }
-                Directory.CreateDirectory(_workDir);
+                string dlPath = _fileDir + @"\" + Utils.RandomString(8) + ".zip";
 
                 // Add defender exception if enabled
                 if (chkDefender.Checked)
@@ -105,17 +119,34 @@ namespace Fedoraloader
                     }
                 }
 
+                Thread.Sleep(250);
+
                 // Download build
                 UpdateStatus("Downloading...");
-                WebClient wc = new();
-                wc.DownloadFile(ACTION_URL, dlPath);
+                /*WebClient wc = new();
+                wc.DownloadFile(ACTION_URL, dlPath);*/
+                
+                HttpClientHandler clientHandler = new();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+                using (var httpClient = new HttpClient())
+                {
+                    using var request = new HttpRequestMessage(HttpMethod.Get, ACTION_URL);
+                    using var contentStream = httpClient.Send(request).Content.ReadAsStream();
+                    using var fileStream = new FileStream(dlPath, FileMode.Create, FileAccess.Write);
+                    contentStream.CopyTo(fileStream);
+                }
+
+                Thread.Sleep(250);
 
                 // Extract build
                 UpdateStatus("Extracting files...");
-                ZipFile.ExtractToDirectory(dlPath, _workDir, true);
+                ZipFile.ExtractToDirectory(dlPath, _fileDir, true);
                 File.Delete(dlPath);
 
-                dllFile = Directory.GetFiles(_workDir, "*.dll").First();
+                Thread.Sleep(250);
+
+                dllFile = Directory.GetFiles(_fileDir, "*.dll").First();
             }
             catch (Exception ex)
             {
@@ -232,6 +263,12 @@ namespace Fedoraloader
                 Thread.Sleep(250);
             } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2" or "steam" or "steamwebhelper") > 0);
 
+            // Extract VAC Bypass
+            Directory.CreateDirectory(_workDir + @"\Bypass\");
+            File.WriteAllBytes(_workDir + @"\Bypass\VAC-Bypass.dll", Properties.Resources.VAC_Bypass);
+
+            Thread.Sleep(250);
+
             // Start new steam process
             UpdateStatus("Starting Steam...");
             string steamPath = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamExe", "");
@@ -262,8 +299,8 @@ namespace Fedoraloader
             } while (!moduleFound);
 
             UpdateStatus("Loading VAC bypass...");
-            Injector steamInjector = new Injector();
-            InjectionResult injectionResult = steamInjector.Inject(steamProcess.Handle, AppDomain.CurrentDomain.BaseDirectory + @"\VAC-Bypass.dll");
+            Injector steamInjector = new();
+            InjectionResult injectionResult = steamInjector.Inject(steamProcess.Handle, _workDir + @"\Bypass\VAC-Bypass.dll");
             if (injectionResult != InjectionResult.Success)
             {
                 MessageBox.Show("VAC bypass failed! Could not inject into Steam.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -274,7 +311,7 @@ namespace Fedoraloader
 
             do
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(1500);
             } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2") == 0);
 
             return true;
