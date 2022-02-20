@@ -28,8 +28,8 @@ namespace Fedoraloader
         public static bool IsElevated => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
         private Point _mouseStartPos;
-        private string _workDir;
-        private string _fileDir;
+        private readonly string _workDir;
+        private readonly string _fileDir;
 
         public MainWindow()
         {
@@ -39,20 +39,17 @@ namespace Fedoraloader
             // Check for administrator rights
             if (!IsElevated)
             {
-                MessageBox.Show("This programm will not work without administrator rights!\nPlease run it as administrator.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This program will not work without administrator rights!\nPlease run it as administrator.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // Generate random work folder
-            if (string.IsNullOrEmpty(Properties.Settings.Default.folderID))
+            // Check windows version
+            if (Environment.OSVersion.Version.Major < 10)
             {
-                do
-                {
-                    Properties.Settings.Default.folderID = Utils.RandomString(12);
-                } while (Directory.Exists(Path.GetTempPath() + Properties.Settings.Default.folderID));
-                Properties.Settings.Default.Save();
+                MessageBox.Show("This program was designed for Windows 10 and higher and might not work properly on your system.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            _workDir = Path.GetTempPath() + Properties.Settings.Default.folderID;
+            // Prepare working directory
+            _workDir = Path.GetTempPath() + "Fedloader";
             _fileDir = _workDir + @"\Data\";
             Debug.WriteLine(_workDir);
 
@@ -60,6 +57,10 @@ namespace Fedoraloader
             chkDefender.Checked = Properties.Settings.Default.defender;
 
             Text = Utils.RandomString(8);
+
+            // Initialize tooltips
+            mainToolTip.SetToolTip(chkBypass, "Starts Steam with a VAC Bypass.\nThis will restart Steam and TF2.");
+            mainToolTip.SetToolTip(chkDefender, "Tries to add Windows Defender exceptions for Fedoraloader.");
         }
 
         private async void btnLoad_Click(object sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace Fedoraloader
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to create working directory:\n" + ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to create working directory:\n" + ex.Message + "\nIs the loader or Fedoraware already running?", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -98,7 +99,11 @@ namespace Fedoraloader
             // Wait for TF2
             UpdateStatus("Searching for TF2...");
             Process? tfProcess = GetGameProcess();
-            if (tfProcess == null) { MessageBox.Show("Invalid game process!", "", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            if (tfProcess == null)
+            {
+                MessageBox.Show("Team Fortress 2 could not be found!\nMake sure that you open it before loading.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string dllFile = _fileDir + @"Fware(Release).dll";
 
             // Download latest build
@@ -110,7 +115,7 @@ namespace Fedoraloader
                 if (chkDefender.Checked)
                 {
                     UpdateStatus("Adding Defender exception...");
-                    if (!AddDefender(Directory.GetCurrentDirectory()) || !AddDefender(_workDir))
+                    if (!Utils.AddDefender(Directory.GetCurrentDirectory()) || !Utils.AddDefender(_workDir))
                     {
                         if (MessageBox.Show("Failed to add Defender exception!\nDo you want to continue?", "", MessageBoxButtons.YesNo) == DialogResult.No)
                         {
@@ -121,11 +126,8 @@ namespace Fedoraloader
 
                 Thread.Sleep(250);
 
-                // Download build
+                // Download latest build
                 UpdateStatus("Downloading...");
-                /*WebClient wc = new();
-                wc.DownloadFile(ACTION_URL, dlPath);*/
-                
                 HttpClientHandler clientHandler = new();
                 clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 
@@ -212,7 +214,7 @@ namespace Fedoraloader
 
                 case InjectionResult.Success:
                     UpdateStatus("Injection successful!");
-                    MessageBox.Show("Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Fedoraloader was successful!\nUse the INSERT key to open the menu.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.Exit();
                     break;
 
@@ -228,7 +230,7 @@ namespace Fedoraloader
             {
                 if (!VacBypass())
                 {
-                    if (MessageBox.Show("VAC bypass failed! Be careful.", "", MessageBoxButtons.OKCancel,
+                    if (MessageBox.Show("VAC bypass failed!", "", MessageBoxButtons.OKCancel,
                             MessageBoxIcon.Error) == DialogResult.Cancel)
                     {
                         return null;
@@ -237,13 +239,7 @@ namespace Fedoraloader
             }
 
             Process[] procList = Process.GetProcessesByName("hl2");
-            if (procList.Length == 0)
-            {
-                MessageBox.Show("Team Fortress 2 could not be found!\nMake sure that you open it before loading.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
-            }
-
-            return procList.First();
+            return procList.Length == 0 ? null : procList.First();
         }
 
         private bool VacBypass()
@@ -261,18 +257,18 @@ namespace Fedoraloader
             do
             {
                 Thread.Sleep(250);
-            } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2" or "steam" or "steamwebhelper") > 0);
+            } while (Process.GetProcesses().Any(p => p.ProcessName is "hl2" or "steam" or "steamwebhelper"));
 
             // Extract VAC Bypass
             Directory.CreateDirectory(_workDir + @"\Bypass\");
-            File.WriteAllBytes(_workDir + @"\Bypass\VAC-Bypass.dll", Properties.Resources.VAC_Bypass);
+            string vbFile = _workDir + @"\Bypass\vb.dll";
+            File.WriteAllBytes(vbFile, Properties.Resources.VAC_Bypass);
 
             Thread.Sleep(250);
 
             // Start new steam process
             UpdateStatus("Starting Steam...");
-            string steamPath = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamExe", "");
-            if (!File.Exists(steamPath))
+            if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamExe", "") is not string steamPath || !File.Exists(steamPath))
             {
                 return false;
             }
@@ -300,7 +296,7 @@ namespace Fedoraloader
 
             UpdateStatus("Loading VAC bypass...");
             Injector steamInjector = new();
-            InjectionResult injectionResult = steamInjector.Inject(steamProcess.Handle, _workDir + @"\Bypass\VAC-Bypass.dll");
+            InjectionResult injectionResult = steamInjector.Inject(steamProcess.Handle, vbFile);
             if (injectionResult != InjectionResult.Success)
             {
                 MessageBox.Show("VAC bypass failed! Could not inject into Steam.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -313,24 +309,6 @@ namespace Fedoraloader
             {
                 Thread.Sleep(1500);
             } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2") == 0);
-
-            return true;
-        }
-
-        private bool AddDefender(string pDirectory)
-        {
-            try
-            {
-                PowerShell.Create()
-                    .AddScript(@"Add-MpPreference -ExclusionPath '" + pDirectory + "'")
-                    .Invoke();
-
-                Debug.WriteLine("Added folder to defender: " + pDirectory);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
 
             return true;
         }

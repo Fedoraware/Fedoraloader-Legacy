@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnLoad = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
@@ -37,6 +38,7 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.chkBypass = new System.Windows.Forms.CheckBox();
             this.chkDefender = new System.Windows.Forms.CheckBox();
+            this.mainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGradient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
@@ -138,8 +140,6 @@
             // 
             this.chkBypass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBypass.AutoSize = true;
-            this.chkBypass.Checked = true;
-            this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBypass.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.chkBypass.Location = new System.Drawing.Point(22, 198);
             this.chkBypass.Name = "chkBypass";
@@ -153,8 +153,6 @@
             // 
             this.chkDefender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkDefender.AutoSize = true;
-            this.chkDefender.Checked = true;
-            this.chkDefender.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDefender.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.chkDefender.Location = new System.Drawing.Point(312, 198);
             this.chkDefender.Name = "chkDefender";
@@ -203,5 +201,6 @@
         private CheckBox chkBypass;
         private CheckBox chkDefender;
         private PictureBox picGradient;
+        private ToolTip mainToolTip;
     }
 }

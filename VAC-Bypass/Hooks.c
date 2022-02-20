@@ -27,7 +27,7 @@ HMODULE WINAPI Hooks_LoadLibraryExW_SteamClient(LPCWSTR lpLibFileName, HANDLE hF
             *toPatch = 0xEB;
             VirtualProtect(toPatch, 1, old, &old);
             Utils_hookImport(L"steamservice", "kernel32.dll", "LoadLibraryExW", Hooks_LoadLibraryExW);
-            MessageBoxW(NULL, L"Initialization was successful! (VAC Bypass Loader)", L"VAC bypass", MB_OK | MB_ICONINFORMATION);
+            MessageBoxW(NULL, L"Initialization was successful!", L"Fedoraloader (VAC bypass)", MB_OK | MB_ICONINFORMATION);
         }
     }
     return result;
@@ -64,21 +64,21 @@ VOID WINAPI Hooks_GetSystemInfo(LPSYSTEM_INFO lpSystemInfo)
 
 BOOL WINAPI Hooks_GetVersionExA(LPOSVERSIONINFOEXA lpVersionInformation)
 {
-    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"VAC bypass", MB_OK | MB_ICONERROR);
+    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"Fedoraloader (VAC bypass)", MB_OK | MB_ICONERROR);
     ExitProcess(1);
     return FALSE;
 }
 
 UINT WINAPI Hooks_GetSystemDirectoryW(LPWSTR lpBuffer, UINT uSize)
 {
-    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"VAC bypass", MB_OK | MB_ICONERROR);
+    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"Fedoraloader (VAC bypass)", MB_OK | MB_ICONERROR);
     ExitProcess(1);
     return 0;
 }
 
 UINT WINAPI Hooks_GetWindowsDirectoryW(LPWSTR lpBuffer, UINT uSize)
 {
-    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"VAC bypass", MB_OK | MB_ICONERROR);
+    MessageBoxW(NULL, L"Bypass malfunction detected! Steam will close...", L"Fedoraloader (VAC bypass)", MB_OK | MB_ICONERROR);
     ExitProcess(1);
     return 0;
 }
