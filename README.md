@@ -17,7 +17,7 @@ You can download the latest Fedoraloader build from the [releases](https://githu
 - Click the **LOAD** button
 
 ## How it works
-This program downloads the latest Fedoraware artifact using [nightly.link](nightly.link) and extracts it in your TEMP-Folder.
+Fedoraloader downloads the latest Fedoraware artifact using [nightly.link](nightly.link) and extracts it in your TEMP-Folder.
 Then the .dll file is injected into TF2 using an internal LoadLibrary injector.
 
 Optionally, you can let the loader create exceptions for Microsoft Defender so it won't block the Fedoraware DLL or enable Daniel Krupiński's VAC Bypass that reduces the chance of getting VAC banned.
