@@ -22,6 +22,12 @@ Then the .dll file is injected into TF2 using an internal LoadLibrary injector.
 
 Optionally, you can let the loader create exceptions for Microsoft Defender so it won't block the Fedoraware DLL or enable Daniel Krupiński's VAC Bypass that reduces the chance of getting VAC banned.
 
+## Can't run Fedoraloader?
+<p align="center">
+  <img src="https://i.imgur.com/OtZwqIr.png" />
+</p>
+If you get this error message, then you've most likely tried running Fedoraloader on Windows 7 and below. Please note that Windows 7 is not supported anymore and you should switch to Windows 10. If you really want to keep using Windows 7, try using <a href="https://github.com/DarthTon/Xenos">Xenos</a> or a similar injector. <a href="https://www.youtube.com/watch?v=PT3kVA053IY">(Xenos Tutorial)</a>
+
 ## Credits
 - [lnx00](https://github.com/lnx00)
 - [Daniel Krupiński](https://github.com/danielkrupinski) (VAC Bypass)
