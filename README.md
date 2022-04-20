@@ -1,5 +1,5 @@
 # Fedoraloader
-Fedoraloader is a simple loader for Fedoraware that automatically downloads and injects the latest Fedoraware build.
+Fedoraloader is a simple loader for [Fedoraware](https://github.com/tf2cheater2013/Fedoraware) that automatically downloads and injects the latest Fedoraware build.
 It was created so you don't have to fiddle around with injectors, GitHub and VAC Bypasses.
 
 *Please note that this program was designed for Windows 10 and higher and might not work on older OS versions!*
