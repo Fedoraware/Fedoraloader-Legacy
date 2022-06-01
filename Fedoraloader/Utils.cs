@@ -17,23 +17,5 @@ namespace Fedoraloader
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length).Select(s => s[_random.Next(s.Length)]).ToArray());
         }
-
-        public static bool AddDefender(string pDirectory)
-        {
-            try
-            {
-                PowerShell.Create()
-                    .AddScript(@"Add-MpPreference -ExclusionPath '" + pDirectory + "'")
-                    .Invoke();
-
-                Debug.WriteLine("Added folder to defender: " + pDirectory);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

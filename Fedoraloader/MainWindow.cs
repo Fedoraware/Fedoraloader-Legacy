@@ -11,19 +11,6 @@ namespace Fedoraloader
 {
     public partial class MainWindow : Form
     {
-        #region Signatures
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,
-            int nTopRect,
-            int nRightRect,
-            int nBottomRect,
-            int nWidthEllipse,
-            int nHeightEllipse
-        );
-        #endregion
-
         public const string ACTION_URL = "https://nightly.link/tf2cheater2013/Fedoraware/workflows/msbuild/main/Fedoraware.zip";
         public static bool IsElevated => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
@@ -34,7 +21,6 @@ namespace Fedoraloader
         public MainWindow()
         {
             InitializeComponent();
-            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
 
             // Check for administrator rights
             if (!IsElevated)
@@ -54,13 +40,11 @@ namespace Fedoraloader
             Debug.WriteLine(_workDir);
 
             chkBypass.Checked = Properties.Settings.Default.bypass;
-            chkDefender.Checked = Properties.Settings.Default.defender;
 
             Text = Utils.RandomString(8);
 
             // Initialize tooltips
             mainToolTip.SetToolTip(chkBypass, "Starts Steam with a VAC Bypass.\nThis will restart Steam and TF2.");
-            mainToolTip.SetToolTip(chkDefender, "Tries to add Windows Defender exceptions for Fedoraloader.");
         }
 
         private async void btnLoad_Click(object sender, EventArgs e)
@@ -110,19 +94,6 @@ namespace Fedoraloader
             try
             {
                 string dlPath = _fileDir + @"\" + Utils.RandomString(8) + ".zip";
-
-                // Add defender exception if enabled
-                if (chkDefender.Checked)
-                {
-                    UpdateStatus("Adding Defender exception...");
-                    if (!Utils.AddDefender(Directory.GetCurrentDirectory()) || !Utils.AddDefender(_workDir))
-                    {
-                        if (MessageBox.Show("Failed to add Defender exception!\nDo you want to continue?", "", MessageBoxButtons.YesNo) == DialogResult.No)
-                        {
-                            return;
-                        }
-                    }
-                }
 
                 Thread.Sleep(250);
 
@@ -308,7 +279,8 @@ namespace Fedoraloader
             do
             {
                 Thread.Sleep(1500);
-            } while (Process.GetProcesses().Count(p => p.ProcessName is "hl2") == 0);
+            } while (!Process.GetProcesses().Any(p => p.ProcessName is "hl2"));
+            Thread.Sleep(500);
 
             return true;
         }
@@ -358,12 +330,6 @@ namespace Fedoraloader
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.bypass = chkBypass.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void chkDefender_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.defender = chkDefender.Checked;
             Properties.Settings.Default.Save();
         }
         #endregion

@@ -37,7 +37,6 @@
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.chkBypass = new System.Windows.Forms.CheckBox();
-            this.chkDefender = new System.Windows.Forms.CheckBox();
             this.mainToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGradient)).BeginInit();
@@ -53,9 +52,9 @@
             this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoad.Font = new System.Drawing.Font("Segoe UI Black", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLoad.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnLoad.Location = new System.Drawing.Point(22, 223);
+            this.btnLoad.Location = new System.Drawing.Point(25, 223);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(445, 57);
+            this.btnLoad.Size = new System.Drawing.Size(459, 53);
             this.btnLoad.TabIndex = 0;
             this.btnLoad.Text = "LOAD";
             this.btnLoad.UseVisualStyleBackColor = false;
@@ -67,7 +66,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("DejaVu Sans", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
-            this.lblTitle.Location = new System.Drawing.Point(162, 12);
+            this.lblTitle.Location = new System.Drawing.Point(172, 12);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(164, 24);
             this.lblTitle.TabIndex = 1;
@@ -84,7 +83,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(488, 47);
+            this.pnlHeader.Size = new System.Drawing.Size(508, 44);
             this.pnlHeader.TabIndex = 2;
             this.pnlHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlHeader_MouseDown);
             this.pnlHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlHeader_MouseMove);
@@ -95,7 +94,7 @@
             this.picGradient.Image = global::Fedoraloader.Properties.Resources.gradient;
             this.picGradient.Location = new System.Drawing.Point(0, 0);
             this.picGradient.Name = "picGradient";
-            this.picGradient.Size = new System.Drawing.Size(488, 4);
+            this.picGradient.Size = new System.Drawing.Size(508, 4);
             this.picGradient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picGradient.TabIndex = 2;
             this.picGradient.TabStop = false;
@@ -103,10 +102,12 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(59)))), ((int)(((byte)(90)))));
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
+            this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Location = new System.Drawing.Point(441, 12);
+            this.btnExit.Location = new System.Drawing.Point(473, 11);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(25, 25);
             this.btnExit.TabIndex = 0;
@@ -117,9 +118,9 @@
             // 
             this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.picLogo.Image = global::Fedoraloader.Properties.Resources.logo;
-            this.picLogo.Location = new System.Drawing.Point(161, 59);
+            this.picLogo.Location = new System.Drawing.Point(159, 55);
             this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(166, 127);
+            this.picLogo.Size = new System.Drawing.Size(190, 119);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 3;
             this.picLogo.TabStop = false;
@@ -129,9 +130,9 @@
             this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblStatus.AutoSize = true;
             this.lblStatus.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblStatus.Location = new System.Drawing.Point(22, 284);
+            this.lblStatus.Location = new System.Drawing.Point(25, 279);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(57, 15);
+            this.lblStatus.Size = new System.Drawing.Size(66, 14);
             this.lblStatus.TabIndex = 4;
             this.lblStatus.Text = "Waiting...";
             this.lblStatus.Visible = false;
@@ -141,40 +142,27 @@
             this.chkBypass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBypass.AutoSize = true;
             this.chkBypass.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.chkBypass.Location = new System.Drawing.Point(22, 198);
+            this.chkBypass.Location = new System.Drawing.Point(25, 200);
             this.chkBypass.Name = "chkBypass";
-            this.chkBypass.Size = new System.Drawing.Size(125, 19);
+            this.chkBypass.Size = new System.Drawing.Size(147, 18);
             this.chkBypass.TabIndex = 5;
             this.chkBypass.Text = "Enable VAC bypass";
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
-            // chkDefender
-            // 
-            this.chkDefender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkDefender.AutoSize = true;
-            this.chkDefender.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.chkDefender.Location = new System.Drawing.Point(312, 198);
-            this.chkDefender.Name = "chkDefender";
-            this.chkDefender.Size = new System.Drawing.Size(154, 19);
-            this.chkDefender.TabIndex = 6;
-            this.chkDefender.Text = "Add Defender exception";
-            this.chkDefender.UseVisualStyleBackColor = true;
-            this.chkDefender.CheckedChanged += new System.EventHandler(this.chkDefender_CheckedChanged);
-            // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.ClientSize = new System.Drawing.Size(488, 306);
-            this.Controls.Add(this.chkDefender);
+            this.ClientSize = new System.Drawing.Size(508, 301);
             this.Controls.Add(this.chkBypass);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.picLogo);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.btnLoad);
             this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainWindow";
@@ -199,7 +187,6 @@
         private PictureBox picLogo;
         private Label lblStatus;
         private CheckBox chkBypass;
-        private CheckBox chkDefender;
         private PictureBox picGradient;
         private ToolTip mainToolTip;
     }
