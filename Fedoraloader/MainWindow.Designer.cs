@@ -38,6 +38,7 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.chkBypass = new System.Windows.Forms.CheckBox();
             this.mainToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.pnlLaunchArgs = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGradient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
@@ -150,12 +151,25 @@
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
+            // pnlLaunchArgs
+            // 
+            this.pnlLaunchArgs.BackColor = System.Drawing.Color.Transparent;
+            this.pnlLaunchArgs.BackgroundImage = global::Fedoraloader.Properties.Resources.settings;
+            this.pnlLaunchArgs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pnlLaunchArgs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlLaunchArgs.Location = new System.Drawing.Point(466, 199);
+            this.pnlLaunchArgs.Name = "pnlLaunchArgs";
+            this.pnlLaunchArgs.Size = new System.Drawing.Size(18, 18);
+            this.pnlLaunchArgs.TabIndex = 7;
+            this.pnlLaunchArgs.Click += new System.EventHandler(this.pnlLaunchArgs_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(508, 301);
+            this.Controls.Add(this.pnlLaunchArgs);
             this.Controls.Add(this.chkBypass);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.picLogo);
@@ -169,6 +183,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fedoraloader";
+            this.TopMost = true;
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picGradient)).EndInit();
@@ -189,5 +204,6 @@
         private CheckBox chkBypass;
         private PictureBox picGradient;
         private ToolTip mainToolTip;
+        private Panel pnlLaunchArgs;
     }
 }
