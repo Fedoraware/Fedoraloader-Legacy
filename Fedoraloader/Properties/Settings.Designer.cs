@@ -34,5 +34,17 @@ namespace Fedoraloader.Properties {
                 this["bypass"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string steamArgs {
+            get {
+                return ((string)(this["steamArgs"]));
+            }
+            set {
+                this["steamArgs"] = value;
+            }
+        }
     }
 }

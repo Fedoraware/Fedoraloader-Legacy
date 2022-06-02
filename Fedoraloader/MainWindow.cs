@@ -140,10 +140,12 @@ namespace Fedoraloader
                 DialogResult dlgResult = MessageBox.Show("The loader file could not be found!\nDo you want to manually select a .dll file?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlgResult != DialogResult.Yes) { return; }
 
-                OpenFileDialog dllDialog = new();
-                dllDialog.Multiselect = false;
-                dllDialog.Title = "Select .dll file";
-                dllDialog.Filter = "DLL File (*.dll)|*.dll";
+                OpenFileDialog dllDialog = new()
+                {
+                    Multiselect = false,
+                    Title = "Select .dll file",
+                    Filter = "DLL File (*.dll)|*.dll"
+                };
 
                 if (dllDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -245,10 +247,10 @@ namespace Fedoraloader
             }
 
             // Wait for process
-            Process steamProcess = new Process();
+            Process steamProcess = new();
             steamProcess.StartInfo.FileName = steamPath;
             steamProcess.StartInfo.UseShellExecute = true;
-            steamProcess.StartInfo.Arguments = "-applaunch 440";
+            steamProcess.StartInfo.Arguments = "-applaunch 440 " + Properties.Settings.Default.steamArgs;
             steamProcess.StartInfo.Verb = "runas";
             steamProcess.Start();
 
@@ -333,5 +335,10 @@ namespace Fedoraloader
             Properties.Settings.Default.Save();
         }
         #endregion
+
+        private void pnlLaunchArgs_Click(object sender, EventArgs e)
+        {
+            new Settings().ShowDialog();
+        }
     }
 }
