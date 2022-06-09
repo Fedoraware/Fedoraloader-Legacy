@@ -5,7 +5,7 @@ It was created so you don't have to fiddle around with injectors, GitHub and VAC
 *Please note that this program was designed for Windows 10 and higher and might not work on older OS versions!*
 
 <p align="center">
-  <img src="https://i.imgur.com/DQZDrI4.png" />
+  <img src="https://i.imgur.com/IjSdW29.png" />
 </p>
   
 ## Download
@@ -27,6 +27,10 @@ Optionally, you can let the loader create exceptions for Microsoft Defender so i
   <img src="https://i.imgur.com/OtZwqIr.png" />
 </p>
 If you get this error message, then you've most likely tried running Fedoraloader on Windows 7 and below. Please note that Windows 7 is not supported anymore and you should switch to Windows 10. If you really want to keep using Windows 7, try using <a href="https://github.com/DarthTon/Xenos">Xenos</a> or a similar injector. <a href="https://www.youtube.com/watch?v=PT3kVA053IY">(Xenos Tutorial)</a>
+
+## Issues with Fedoraware?
+Post all issues and problems regarding Fedoraware into the [Fedoraware Issues section](https://github.com/tf2cheater2013/Fedoraware/issues) on the GitHub repository.
+This repository is only for the Fedoraloader that loads and injects Fedoraware!
 
 ## Credits
 - [lnx00](https://github.com/lnx00)
