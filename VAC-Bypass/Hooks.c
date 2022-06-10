@@ -27,7 +27,6 @@ HMODULE WINAPI Hooks_LoadLibraryExW_SteamClient(LPCWSTR lpLibFileName, HANDLE hF
             *toPatch = 0xEB;
             VirtualProtect(toPatch, 1, old, &old);
             Utils_hookImport(L"steamservice", "kernel32.dll", "LoadLibraryExW", Hooks_LoadLibraryExW);
-            MessageBoxW(NULL, L"Initialization was successful!", L"Fedoraloader (VAC bypass)", MB_OK | MB_ICONINFORMATION);
         }
     }
     return result;
