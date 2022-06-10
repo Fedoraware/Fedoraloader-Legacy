@@ -46,5 +46,17 @@ namespace Fedoraloader.Properties {
                 this["steamArgs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool successMsg {
+            get {
+                return ((bool)(this["successMsg"]));
+            }
+            set {
+                this["successMsg"] = value;
+            }
+        }
     }
 }

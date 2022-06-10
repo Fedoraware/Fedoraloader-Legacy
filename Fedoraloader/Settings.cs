@@ -25,6 +25,7 @@ namespace Fedoraloader
         private void button1_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.steamArgs = txtLaunchArgs.Text;
+            Properties.Settings.Default.successMsg = chkSuccess.Checked;
             Properties.Settings.Default.Save();
             Close();
         }
@@ -32,6 +33,7 @@ namespace Fedoraloader
         private void Settings_Load_1(object sender, EventArgs e)
         {
             txtLaunchArgs.Text = Properties.Settings.Default.steamArgs;
+            chkSuccess.Checked = Properties.Settings.Default.successMsg;
         }
     }
 }

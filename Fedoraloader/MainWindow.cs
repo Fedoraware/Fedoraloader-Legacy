@@ -187,6 +187,11 @@ namespace Fedoraloader
 
                 case InjectionResult.Success:
                     UpdateStatus("Injection successful!");
+                    if (Properties.Settings.Default.successMsg)
+                    {
+                        MessageBox.Show("Fedoraloader was successful!\nUse the INSERT key to open the menu.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    Thread.Sleep(1000);
                     Application.Exit();
                     break;
 

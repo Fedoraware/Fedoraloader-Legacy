@@ -32,6 +32,7 @@
             this.txtLaunchArgs = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkSuccess = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -78,12 +79,24 @@
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // chkSuccess
+            // 
+            this.chkSuccess.AutoSize = true;
+            this.chkSuccess.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkSuccess.Location = new System.Drawing.Point(12, 68);
+            this.chkSuccess.Name = "chkSuccess";
+            this.chkSuccess.Size = new System.Drawing.Size(218, 22);
+            this.chkSuccess.TabIndex = 4;
+            this.chkSuccess.Text = "Show success message";
+            this.chkSuccess.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(405, 170);
+            this.Controls.Add(this.chkSuccess);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtLaunchArgs);
@@ -107,5 +120,6 @@
         private TextBox txtLaunchArgs;
         private Button button1;
         private Button btnCancel;
+        private CheckBox chkSuccess;
     }
 }
