@@ -21,6 +21,7 @@
             <RowDefinition Height="3"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition/>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -154,6 +155,12 @@
                 </Button>
             </StackPanel>
         </StackPanel>
+
+        <!-- Status Text -->
+		<TextBlock Grid.Row="3"
+		           Text="Hello"
+		           Margin="10, 0, 0, 0"
+		           Name="StatusText"/>
 
     </Grid>
 </Window>
