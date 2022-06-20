@@ -26,36 +26,36 @@ namespace Fedoraloader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool bypass {
+        public bool UseBypass {
             get {
-                return ((bool)(this["bypass"]));
+                return ((bool)(this["UseBypass"]));
             }
             set {
-                this["bypass"] = value;
+                this["UseBypass"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string steamArgs {
+        public string SteamArgs {
             get {
-                return ((string)(this["steamArgs"]));
+                return ((string)(this["SteamArgs"]));
             }
             set {
-                this["steamArgs"] = value;
+                this["SteamArgs"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool successMsg {
+        public bool ShowMessages {
             get {
-                return ((bool)(this["successMsg"]));
+                return ((bool)(this["ShowMessages"]));
             }
             set {
-                this["successMsg"] = value;
+                this["ShowMessages"] = value;
             }
         }
     }
