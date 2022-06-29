@@ -1,51 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.32126.317
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fedoraloader", "Fedoraloader\Fedoraloader.csproj", "{71DFAF8D-764C-4462-8900-86774072E0F3}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VAC-Bypass", "VAC-Bypass\VAC-Bypass.vcxproj", "{570CD524-DFD6-4C22-85FE-8116F8DD4682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fedoraloader", "Fedoraloader\Fedoraloader.csproj", "{A7A0F686-FE20-4714-AD1B-695425BF70F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|x64.Build.0 = Debug|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|x86.ActiveCfg = Debug|x86
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Debug|x86.Build.0 = Debug|x86
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|x64.ActiveCfg = Release|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|x64.Build.0 = Release|Any CPU
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|x86.ActiveCfg = Release|x86
-		{71DFAF8D-764C-4462-8900-86774072E0F3}.Release|x86.Build.0 = Release|x86
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|Any CPU.Build.0 = Debug|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|x64.ActiveCfg = Debug|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|x64.Build.0 = Debug|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|x86.ActiveCfg = Debug|Win32
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Debug|x86.Build.0 = Debug|Win32
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|Any CPU.ActiveCfg = Release|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|Any CPU.Build.0 = Release|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|x64.ActiveCfg = Release|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|x64.Build.0 = Release|x64
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|x86.ActiveCfg = Release|Win32
-		{570CD524-DFD6-4C22-85FE-8116F8DD4682}.Release|x86.Build.0 = Release|Win32
+		{A7A0F686-FE20-4714-AD1B-695425BF70F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7A0F686-FE20-4714-AD1B-695425BF70F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7A0F686-FE20-4714-AD1B-695425BF70F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7A0F686-FE20-4714-AD1B-695425BF70F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5AD03895-666E-4FBA-951E-EFDCC73D6699}
+		SolutionGuid = {EF84CC4F-947D-41D2-ACD0-33629A60C39B}
 	EndGlobalSection
 EndGlobal
