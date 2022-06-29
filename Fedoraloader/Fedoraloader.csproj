@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+    <StartupObject>Fedoraloader.App</StartupObject>
+    <ApplicationIcon>Assets\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,10 @@
     <None Remove="Assets\Images\CloseIcon.png" />
     <None Remove="Assets\Images\Logo.png" />
     <None Remove="Assets\Images\SettingsIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Icons\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
