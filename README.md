@@ -2,7 +2,7 @@
 > This version of Fedoraloader has been discontinued and is outdated.
 > Please use the new [Fedoraloader v2](https://github.com/Fedoraware/Fedoraloader) instead!
 
-# Fedoraloader
+# Fedoraloader Legacy
 Fedoraloader is a simple loader for [Fedoraware](https://github.com/tf2cheater2013/Fedoraware) that automatically downloads and injects the latest Fedoraware build.
 It was created so you don't have to fiddle around with injectors, GitHub and VAC Bypasses.
 
